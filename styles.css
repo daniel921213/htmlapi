@@ -1,0 +1,87 @@
+/* 全局背景與文字顏色 */
+body {
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
+    color: #f4f4f9;
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+input.form-control {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #f4f4f9;
+}
+
+input.form-control::placeholder {
+    color: #e1e1e5;
+}
+
+input.form-control:focus {
+    border-color: #06d6a0;
+    box-shadow: 0 0 8px rgba(6, 214, 160, 0.6);
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #06d6a0, #118ab2);
+    border: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(90deg, #118ab2, #06d6a0);
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: linear-gradient(90deg, #ef476f, #d72638);
+    border: none;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.btn-danger:hover {
+    background: linear-gradient(90deg, #d72638, #ef476f);
+    transform: translateY(-2px);
+}
+
+table {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+table thead {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+table th,
+table td {
+    text-align: center;
+    padding: 15px;
+    color: #f4f4f9;
+}
+
+table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+button {
+    cursor: pointer;
+}
