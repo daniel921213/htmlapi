@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API CRUD Operations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        label, input, button {
+            display: block;
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Gateway CRUD Operations</h1>
+
+    <!-- Add Item -->
+    <h2>Add Item</h2>
+    <form id="add-form">
+        <label for="add-id">ID:</label>
+        <input type="text" id="add-id" placeholder="Enter ID" required>
+        <label for="add-name">Name:</label>
+        <input type="text" id="add-name" placeholder="Enter Name" required>
+        <label for="add-price">Price:</label>
+        <input type="number" id="add-price" placeholder="Enter Price" required>
+        <button type="submit">Add Item</button>
+    </form>
+
+    <!-- Update Item -->
+    <h2>Update Item</h2>
+    <form id="update-form">
+        <label for="update-id">ID:</label>
+        <input type="text" id="update-id" placeholder="Enter ID to Update" required>
+        <label for="update-name">Name:</label>
+        <input type="text" id="update-name" placeholder="Enter New Name">
+        <label for="update-price">Price:</label>
+        <input type="number" id="update-price" placeholder="Enter New Price">
+        <button type="submit">Update Item</button>
+    </form>
+
+    <!-- Query Items -->
+    <h2>Query Items</h2>
+    <button id="query-button">Query All Items</button>
+    <table id="items-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <!-- Delete Item -->
+    <h2>Delete Item</h2>
+    <form id="delete-form">
+        <label for="delete-id">ID:</label>
+        <input type="text" id="delete-id" placeholder="Enter ID to Delete" required>
+        <button type="submit">Delete Item</button>
+    </form>
+
+    <script>
+        const API_URL = "https://go9fzb16h2.execute-api.us-east-1.amazonaws.com/items";
+
+        // Add Item
+        document.getElementById("add-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const id = document.getElementById("add-id").value;
+            const name = document.getElementById("add-name").value;
+            const price = document.getElementById("add-price").value;
+
+            const response = await fetch(API_URL, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id, name, price }),
+            });
+
+            alert(await response.text());
+        });
+
+        // Update Item
+        document.getElementById("update-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const id = document.getElementById("update-id").value;
+            const name = document.getElementById("update-name").value;
+            const price = document.getElementById("update-price").value;
+
+            const response = await fetch(`${API_URL}/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, price }),
+            });
+
+            alert(await response.text());
+        });
+
+        // Query Items
+        document.getElementById("query-button").addEventListener("click", async () => {
+            const response = await fetch(API_URL, { method: "GET" });
+            const items = await response.json();
+
+            const tableBody = document.querySelector("#items-table tbody");
+            tableBody.innerHTML = ""; // Clear the table
+
+            items.forEach((item) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${item.id}</td><td>${item.name}</td><td>${item.price}</td>`;
+                tableBody.appendChild(row);
+            });
+        });
+
+        // Delete Item
+        document.getElementById("delete-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const id = document.getElementById("delete-id").value;
+
+            const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+            alert(await response.text());
+        });
+    </script>
+</body>
+</html>
